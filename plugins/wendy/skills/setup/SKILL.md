@@ -36,18 +36,22 @@ claude mcp add --transport http footbridge https://mcp.dev.footbridge.ai/mcp \
 **c. No Footbridge server of their own** (only the plugin's `plugin:wendy:footbridge`). Offer to add
 one, with the same `claude mcp add` command as above. The cost is a restart and one sign-in.
 
-After b or c: tell them to restart Claude Code, run `/mcp`, pick `footbridge` and choose
-**Authenticate**, then run `/wendy:setup` again to finish. Stop there.
+After b or c the connection exists but is not live in this session yet: Claude Code loads servers at
+startup. Do NOT stop here and do NOT ask them to run `/wendy:setup` again. Carry on through the
+remaining steps, and remember which name you settled on: `footbridge` if they accepted, otherwise the
+name they already had.
 
 If they decline, carry on with whatever connection they have. Everything works; the tool names are
 just longer.
 
-## 2. Connection
+## 2. Connection check (never blocks)
 
 Look for a tool whose name ends in `ledger___health`. If tools are deferred, load it with tool search (query: `ledger___health`). Only a name ending in exactly `ledger___health` counts.
 
-- **Available:** call it. If it succeeds, say "Connected to the Footbridge ledger." and continue.
-- **Missing, or the call fails with an authorization error:** tell the user to run `/mcp`, pick the `footbridge` server, choose **Authenticate**, and sign in with their Footbridge Microsoft account in the browser window that opens. Then ask them to run `/wendy:setup` again, and stop here.
+- **Available:** call it. If it succeeds, say "Connected to the Footbridge ledger." If it fails with an authorization error, note that they need to sign in, and keep going.
+- **Missing:** expected when you just added or renamed the connection in step 1, or when they have not signed in yet. Note it and keep going.
+
+Never stop the setup here, and never ask the user to run `/wendy:setup` twice. The remaining steps do not need a working connection.
 
 ## 3. Allow the Footbridge tools (ask first)
 
@@ -74,3 +78,11 @@ alias wendy='WENDY=1 claude'
 ## 5. Done
 
 Finish with a four-line summary: the connection name, the connection state, the tool approvals (added, skipped or declined), and the alias (added, skipped or declined).
+
+Then, only if step 1 added or renamed the connection, or step 2 showed no working connection, give these three lines as what is left to do:
+
+1. Restart Claude Code, so it picks up the connection (and the alias, in a new terminal).
+2. Run `/mcp`, pick `footbridge` and choose **Authenticate**, then sign in with the Footbridge Microsoft account.
+3. Ask Wendy something, such as "what's on my list?".
+
+Nothing else needs running again.
