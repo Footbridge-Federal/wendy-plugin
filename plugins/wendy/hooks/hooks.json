@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ \"$WENDY\" = 1 ] || [ -f \"$CLAUDE_PROJECT_DIR/.claude/wendy-desk\" ]; then cat \"$CLAUDE_PLUGIN_ROOT/persona.md\"; fi"
+            "command": "if [ \"$WENDY\" = 1 ]; then cat \"$CLAUDE_PLUGIN_ROOT/persona.md\"; fi"
           }
         ]
       }
