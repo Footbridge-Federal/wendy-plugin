@@ -1,0 +1,16 @@
+{
+  "name": "footbridge",
+  "owner": {
+    "name": "Footbridge Federal"
+  },
+  "metadata": {
+    "description": "Footbridge Federal plugins for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "wendy",
+      "source": "./plugins/wendy",
+      "description": "Wendy, the executive assistant: capture, triage and briefs on the Footbridge task ledger"
+    }
+  ]
+}

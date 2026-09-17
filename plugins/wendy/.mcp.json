@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "footbridge": {
+      "type": "http",
+      "url": "https://mcp.dev.footbridge.ai/mcp",
+      "oauth": {
+        "clientId": "5bbe4d92-9daa-493c-85eb-8aec8ae6fa0e",
+        "callbackPort": 8080
+      }
+    }
+  }
+}
