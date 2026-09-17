@@ -74,3 +74,16 @@ claude plugin update wendy@footbridge
 
 - **`/wendy:delegate`**: hand a task to a background Claude Code agent that works in a fresh clone and comes back with a pull request. It exists today only on a pilot setup; it will ship here once it no longer depends on one machine.
 - **The phone**: a mobile chat with the same persona, running on a Footbridge-hosted node.
+
+### The connection's name
+
+The plugin's own connection is named `plugin:wendy:footbridge`, so its tools read
+`mcp__plugin_wendy_footbridge__ledger___task_create`. `/wendy:setup` offers to add the same
+server yourself as `footbridge`, which shortens that to `mcp__footbridge__ledger___task_create`
+and is identical on every machine. Claude Code then skips the plugin's copy as a duplicate.
+Either way Wendy works: she matches tools by the `ledger___` part of the name.
+
+### If tools fail to load
+
+"Tools fetch failed" usually means you are signed in but have no Wendy ledger account yet.
+Run `/mcp`, pick the Footbridge server and choose Authenticate; if it persists, ask Ben.
