@@ -79,7 +79,7 @@ claude plugin update wendy@footbridge
 
 The plugin's own connection is named `plugin:wendy:footbridge`, so its tools read
 `mcp__plugin_wendy_footbridge__ledger___task_create`. `/wendy:setup` offers to add the same
-server yourself as `footbridge`, which shortens that to `mcp__footbridge__ledger___task_create`
+server yourself as `footbridge`, or to rename an existing Footbridge connection to it,, which shortens that to `mcp__footbridge__ledger___task_create`
 and is identical on every machine. Claude Code then skips the plugin's copy as a duplicate.
 Either way Wendy works: she matches tools by the `ledger___` part of the name.
 

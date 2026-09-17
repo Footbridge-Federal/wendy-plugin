@@ -8,19 +8,39 @@ Set Wendy up on this machine. Ask before changing anything, and do each step onl
 
 ## 1. Name the connection (ask first)
 
-The plugin ships the Footbridge connection, but Claude Code names a plugin-supplied server `plugin:wendy:footbridge`, which makes every tool read `mcp__plugin_wendy_footbridge__ledger___…`. Adding the same server yourself gives it the short name `footbridge` on every machine; Claude Code then skips the plugin's copy as a duplicate.
+Wendy's tools should be reached through a server named exactly `footbridge`, so every machine
+shows the same tool names (`mcp__footbridge__ledger___task_create`). The plugin ships the same
+connection, but Claude Code names a plugin-supplied server `plugin:wendy:footbridge`, which makes
+each tool read `mcp__plugin_wendy_footbridge__ledger___…`. A server you add yourself takes
+precedence, and Claude Code then skips the plugin's copy as a duplicate.
 
-- Run `claude mcp list`. If a server named exactly `footbridge` is already there, say so and skip to step 2.
-- Otherwise offer to add it:
+Run `claude mcp list` and decide which case you are in.
+
+**a. A server named `footbridge` is already there.** Say so and go to step 2.
+
+**b. Another server points at the Footbridge gateway** (`https://mcp.dev.footbridge.ai/mcp`) under a
+different name, such as `footbridge-mcp-dev`. Offer to RENAME it, which means removing it and
+adding it back as `footbridge`:
+
+- Read its scope with `claude mcp get <name>`: "User config" means `-s user`, "Project config" means
+  `-s project`, anything else means `-s local`.
+- Say what it costs: the old name's sign-in is discarded, so they sign in once more for the new name.
+- Only after the user says yes:
 
 ```sh
+claude mcp remove <old-name> -s <scope>
 claude mcp add --transport http footbridge https://mcp.dev.footbridge.ai/mcp \
   --client-id 5bbe4d92-9daa-493c-85eb-8aec8ae6fa0e --callback-port 8080 -s user
 ```
 
-- Say what it costs: Claude Code has to restart to pick it up, and they sign in once for the new name (`/mcp` → `footbridge` → Authenticate).
-- Only after the user says yes, run it. Then tell them to restart Claude Code, run `/mcp` and Authenticate, and run `/wendy:setup` again to finish. Stop there.
-- If they decline, carry on with the plugin's own connection. Everything works; the tool names are just longer.
+**c. No Footbridge server of their own** (only the plugin's `plugin:wendy:footbridge`). Offer to add
+one, with the same `claude mcp add` command as above. The cost is a restart and one sign-in.
+
+After b or c: tell them to restart Claude Code, run `/mcp`, pick `footbridge` and choose
+**Authenticate**, then run `/wendy:setup` again to finish. Stop there.
+
+If they decline, carry on with whatever connection they have. Everything works; the tool names are
+just longer.
 
 ## 2. Connection
 
