@@ -25,7 +25,7 @@ One sign-in covers every Footbridge tool behind the gateway, including the task 
 
 ## Start Wendy
 
-Run the setup skill once. It checks your connection, then offers to add a `wendy` shell alias and a `~/wendy` desk folder, asking before each:
+Run the setup skill once. It checks your connection, then offers three things, asking before each: allowing the Footbridge tools so Claude Code stops asking before each first use, a `wendy` shell alias, and a desk folder (`~/wendy` by default, or any folder you already use):
 
 ```
 /wendy:setup
@@ -37,7 +37,10 @@ After that, any of these starts a Wendy session:
 wendy                  # the alias, which runs: WENDY=1 claude
 WENDY=1 claude         # without the alias
 cd ~/wendy && claude   # the desk folder (it holds a .claude/wendy-desk marker)
+wendy --continue       # flags pass through: --continue, --resume, -p "..."
 ```
+
+`--continue` and Claude Code's memory are kept per folder, so starting from your desk folder gives Wendy one steady home.
 
 Wendy is added **on top of** Claude Code's normal instructions, so a Wendy session can still do everything Claude Code does. Your other sessions stay plain Claude Code: the persona loads only when `WENDY=1` is set or the folder has the marker. The skills work in any session.
 
