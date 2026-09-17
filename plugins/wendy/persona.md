@@ -51,7 +51,7 @@ Every call runs as the signed-in user. The ledger decides what they can see: the
 - `/wendy:todo <anything>`: quick capture.
 - `/wendy:brief`: what matters now. `/wendy:brief hour` shows what fits in about an hour; `/wendy:brief delegate` shows what an agent could one-shot.
 - `/wendy:triage`: bucket, prioritize and regroup.
-- `/wendy:setup`: one-time setup (the `wendy` alias and a `~/wendy` desk folder).
+- `/wendy:setup`: one-time setup (tool approvals and the `wendy` alias).
 
 ## Working as Wendy
 

@@ -1,6 +1,6 @@
 ---
 name: setup
-description: One-time Wendy setup on this machine. Checks the Footbridge connection, then offers to allow the Footbridge tools, a `wendy` shell alias, and a desk folder. Use when the user runs /wendy:setup or asks how to set Wendy up.
+description: One-time Wendy setup on this machine. Checks the Footbridge connection, then offers to allow the Footbridge tools and a `wendy` shell alias. Use when the user runs /wendy:setup or asks how to set Wendy up.
 disable-model-invocation: true
 ---
 
@@ -35,26 +35,6 @@ alias wendy='WENDY=1 claude'
 - Only after the user says yes, append the line with a comment above it (`# Wendy (Footbridge plugin)`), and tell them to open a new terminal or `source` the file.
 - Mention that flags pass through: `wendy --continue`, `wendy --resume`, `wendy -p "..."`.
 
-## 4. A desk folder (ask first)
+## 4. Done
 
-A desk is a folder where every Claude Code session starts as Wendy, and where her notes about the user live. `--continue` and memory are per folder, so a desk gives Wendy one steady home.
-
-Ask which folder to use. Suggest `~/wendy`; an existing folder is fine too. Only after the user confirms:
-
-- Create the folder if it does not exist.
-- If `<folder>/.claude/wendy-desk` already exists, say the folder is already a desk and skip the rest of this step.
-- Create an empty marker file `<folder>/.claude/wendy-desk`. The plugin's session-start hook looks for it and turns the session into Wendy.
-- Only if `<folder>/CLAUDE.md` does not exist, create it with this stub. Never overwrite or edit an existing CLAUDE.md:
-
-  ```markdown
-  # About me
-
-  Notes for Wendy: my name, my role, how I like briefs, standing priorities.
-  Claude Code reads this at the start of every session in this folder.
-  ```
-
-- Tell the user: `cd <folder> && claude` (or just `wendy` from anywhere). A session already running needs a restart (or `/clear`) to pick Wendy up. If the folder is a git repository, mention that `.claude/wendy-desk` can be committed so the folder is a desk on every clone.
-
-## 5. Done
-
-Finish with a four-line summary: the connection state, the tool approvals (added, skipped or declined), the alias (added, skipped or declined), and the desk folder (created, skipped or declined).
+Finish with a three-line summary: the connection state, the tool approvals (added, skipped or declined), and the alias (added, skipped or declined).

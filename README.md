@@ -25,7 +25,7 @@ One sign-in covers every Footbridge tool behind the gateway, including the task 
 
 ## Start Wendy
 
-Run the setup skill once. It checks your connection, then offers three things, asking before each: allowing the Footbridge tools so Claude Code stops asking before each first use, a `wendy` shell alias, and a desk folder (`~/wendy` by default, or any folder you already use):
+Run the setup skill once. It checks your connection, then offers two things, asking before each: allowing the Footbridge tools so Claude Code stops asking before each first use, and a `wendy` shell alias:
 
 ```
 /wendy:setup
@@ -36,20 +36,19 @@ After that, any of these starts a Wendy session:
 ```sh
 wendy                  # the alias, which runs: WENDY=1 claude
 WENDY=1 claude         # without the alias
-cd ~/wendy && claude   # the desk folder (it holds a .claude/wendy-desk marker)
 wendy --continue       # flags pass through: --continue, --resume, -p "..."
 ```
 
-`--continue` and Claude Code's memory are kept per folder, so starting from your desk folder gives Wendy one steady home.
+`--continue` and Claude Code's memory are kept per folder, so start `wendy` from the same folder when you want her to pick up where she left off.
 
-Wendy is added **on top of** Claude Code's normal instructions, so a Wendy session can still do everything Claude Code does. Your other sessions stay plain Claude Code: the persona loads only when `WENDY=1` is set or the folder has the marker. The skills work in any session.
+Wendy is added **on top of** Claude Code's normal instructions, so a Wendy session can still do everything Claude Code does. Your other sessions stay plain Claude Code: the persona loads only when `WENDY=1` is set. The skills work in any session.
 
 ## What's inside
 
 | Piece | Path | What it does |
 |---|---|---|
 | Persona | `plugins/wendy/persona.md` | Wendy's voice, manner and ledger conventions |
-| Session-start hook | `plugins/wendy/hooks/hooks.json` | Adds the persona to the session when `WENDY=1` is set or the project has `.claude/wendy-desk`; otherwise does nothing |
+| Session-start hook | `plugins/wendy/hooks/hooks.json` | Adds the persona to the session when `WENDY=1` is set; otherwise does nothing |
 | Skills | `plugins/wendy/skills/` | `/wendy:todo` quick capture · `/wendy:brief` what matters now (`hour`, `delegate` variants) · `/wendy:triage` bucket and prioritize · `/wendy:setup` one-time setup |
 | MCP connection | `plugins/wendy/.mcp.json` | The Footbridge MCP gateway (`https://mcp.dev.footbridge.ai/mcp`), with Claude Code's Entra app id preset so sign-in works |
 | Marketplace | `.claude-plugin/marketplace.json` | The catalog that `claude plugin marketplace add` reads |
