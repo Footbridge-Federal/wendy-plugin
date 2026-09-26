@@ -65,10 +65,19 @@ If you already configured the same gateway URL by hand, Claude Code uses your en
 
 ## Updating
 
-```sh
-claude plugin marketplace update footbridge
-claude plugin update wendy@footbridge
-```
+Claude Code doesn't auto-update third-party marketplaces unless you turn it on. Either:
+
+- **Turn on auto-update once:** in a session, run `/plugin`, open the **Marketplaces** tab, select `footbridge` and choose **Enable auto-update**. New versions then download in the background, and load in your next session or after `/reload-plugins`.
+- **Or update by hand:**
+
+  ```sh
+  claude plugin marketplace update footbridge
+  claude plugin update wendy@footbridge
+  ```
+
+  Then start a new session, or run `/reload-plugins` in an open one.
+
+For maintainers: installed copies are keyed by the `version` in `plugins/wendy/.claude-plugin/plugin.json`, so bump it with every change, or nobody receives the update.
 
 ## Roadmap
 
@@ -86,4 +95,4 @@ Either way Wendy works: she matches tools by the `ledger___` part of the name.
 ### If tools fail to load
 
 "Tools fetch failed" usually means you are signed in but have no Wendy ledger account yet.
-Run `/mcp`, pick the Footbridge server and choose Authenticate; if it persists, ask Ben.
+Run `/mcp`, pick the Footbridge server and choose Authenticate; if it persists, ask your Footbridge admin.
