@@ -1,6 +1,6 @@
 ---
 name: setup
-description: One-time Wendy setup on this machine. Offers a short name for the Footbridge connection, checks it, then offers to allow the Footbridge tools and a `wendy` shell alias. Use when the user runs /wendy:setup or asks how to set Wendy up.
+description: One-time Wendy setup on this machine. Offers a short name for the Footbridge connection, checks it, then offers to allow the Footbridge tools, a `wendy` shell alias and automatic updates. Use when the user runs /wendy:setup or asks how to set Wendy up.
 disable-model-invocation: true
 ---
 
@@ -75,9 +75,20 @@ alias wendy='WENDY=1 claude'
 - Only after the user says yes, append the line with a comment above it (`# Wendy (Footbridge plugin)`), and tell them to open a new terminal or `source` the file.
 - Mention that flags pass through: `wendy --continue`, `wendy --resume`, `wendy -p "..."`.
 
-## 5. Done
+## 5. Automatic updates (ask first)
 
-Finish with a four-line summary: the connection name, the connection state, the tool approvals (added, skipped or declined), and the alias (added, skipped or declined).
+Claude Code doesn't update this plugin by itself unless the `footbridge` marketplace has auto-update turned on.
+
+- Read `~/.claude/settings.json` (treat a missing file as `{}`). If `extraKnownMarketplaces.footbridge.autoUpdate` is already `true`, say so and skip.
+- Otherwise offer it: new Wendy versions then download in the background and load at the next session start. Without it, Wendy still says when an update is out, and `/wendy:update` installs it.
+- Only after the user says yes:
+  - Set `extraKnownMarketplaces.footbridge.autoUpdate` to `true`.
+  - If the `footbridge` entry doesn't exist, create it as `{"source": {"source": "github", "repo": "Footbridge-Federal/wendy-plugin"}, "autoUpdate": true}`.
+  - Keep every other setting exactly as it was, and make sure the file is still valid JSON.
+
+## 6. Done
+
+Finish with a five-line summary: the connection name, the connection state, the tool approvals (added, skipped or declined), the alias (added, skipped or declined), and automatic updates (on, already on or declined).
 
 Then, only if step 1 added or renamed the connection, or step 2 showed no working connection, give these three lines as what is left to do:
 
