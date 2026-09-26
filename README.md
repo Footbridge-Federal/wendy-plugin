@@ -48,8 +48,8 @@ Wendy is added **on top of** Claude Code's normal instructions, so a Wendy sessi
 | Piece | Path | What it does |
 |---|---|---|
 | Persona | `plugins/wendy/persona.md` | Wendy's voice, manner and ledger conventions |
-| Session-start hook | `plugins/wendy/hooks/hooks.json` | Adds the persona to the session when `WENDY=1` is set; otherwise does nothing |
-| Skills | `plugins/wendy/skills/` | `/wendy:todo` quick capture · `/wendy:brief` what matters now (`hour`, `delegate` variants) · `/wendy:triage` bucket and prioritize · `/wendy:setup` one-time setup |
+| Session-start hooks | `plugins/wendy/hooks/hooks.json` | When `WENDY=1` is set: adds the persona, and says when a newer Wendy is out (`scripts/update-check.sh`, at most one GitHub check every 6 hours). Otherwise they do nothing |
+| Skills | `plugins/wendy/skills/` | `/wendy:todo` quick capture · `/wendy:brief` what matters now (`hour`, `delegate` variants) · `/wendy:triage` bucket and prioritize · `/wendy:setup` one-time setup · `/wendy:update` install the latest version |
 | MCP connection | `plugins/wendy/.mcp.json` | The Footbridge MCP gateway (`https://mcp.dev.footbridge.ai/mcp`), with Claude Code's Entra app id preset so sign-in works |
 | Marketplace | `.claude-plugin/marketplace.json` | The catalog that `claude plugin marketplace add` reads |
 
@@ -65,19 +65,18 @@ If you already configured the same gateway URL by hand, Claude Code uses your en
 
 ## Updating
 
-Claude Code doesn't auto-update third-party marketplaces unless you turn it on. Either:
+- **`/wendy:update`** installs the latest version. Then type `/reload-plugins`, or start a new session.
+- **You'll be told.** When a newer version is out, a Wendy session says so when it starts.
+- **Or make it automatic.** `/wendy:setup` and `/wendy:update` offer to turn on auto-update for the `footbridge` marketplace. Claude Code leaves that off for third-party marketplaces unless you turn it on. With it on, new versions download in the background and load at your next session start.
 
-- **Turn on auto-update once:** in a session, run `/plugin`, open the **Marketplaces** tab, select `footbridge` and choose **Enable auto-update**. New versions then download in the background, and load in your next session or after `/reload-plugins`.
-- **Or update by hand:**
+**Coming from 0.1.5 or earlier?** Those versions don't have `/wendy:update` yet, so update once by hand:
 
-  ```sh
-  claude plugin marketplace update footbridge
-  claude plugin update wendy@footbridge
-  ```
+```sh
+claude plugin marketplace update footbridge
+claude plugin update wendy@footbridge
+```
 
-  Then start a new session, or run `/reload-plugins` in an open one.
-
-For maintainers: installed copies are keyed by the `version` in `plugins/wendy/.claude-plugin/plugin.json`, so bump it with every change, or nobody receives the update.
+For maintainers: installed copies are keyed by the `version` in `plugins/wendy/.claude-plugin/plugin.json`, so bump it with every change, or nobody receives the update. The session-start check (`plugins/wendy/scripts/update-check.sh`) compares against that file on `main`.
 
 ## Roadmap
 

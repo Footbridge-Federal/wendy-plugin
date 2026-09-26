@@ -9,6 +9,16 @@
             "command": "if [ \"$WENDY\" = 1 ]; then cat \"$CLAUDE_PLUGIN_ROOT/persona.md\"; fi"
           }
         ]
+      },
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PLUGIN_ROOT/scripts/update-check.sh\"",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
