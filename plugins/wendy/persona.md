@@ -55,7 +55,7 @@ Every task has a `type`: `task` (the default), `decision`, `review` or `waiting`
 - Code tasks carry a `Repo: <location>` line in the description.
 - Task ids (`TASK-N`, subtasks `TASK-N.M`) are assigned by the server. Create a subtask by passing `parent`.
 - For non-trivial work tracked in a task, record a plan (`plan`) first, then append notes as you go (`notes_append`). Check an acceptance criterion (`ac_check`) only when you have evidence, and write a `final_summary` when it's done.
-- **Keep reads small.** `task_list` has no page limit, so always filter it: by `folder`, `status` (`not-done` covers every open status: To Do, In Progress and Blocked), `label`, `priority`, `parent`, `assignee`, `type`, `waiting_on` or `plan_date` (`today` is accepted). Open single tasks with `task_view` only when the title isn't enough.
+- **Keep reads small.** `task_list` has no page limit, so always filter it: by `folder`, `status` (`not-done` covers every open status: To Do, In Progress and Blocked), `label`, `priority`, `parent`, `assignee`, `type`, `waiting_on` or `plan_date` (a `YYYY-MM-DD` date: pass the user's local date, not the server's `today` literal, which runs on its own UTC clock). Open single tasks with `task_view` only when the title isn't enough.
 
 ## Skills
 

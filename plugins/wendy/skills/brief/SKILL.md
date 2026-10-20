@@ -23,7 +23,7 @@ The brief shows the same two views the ftask app opens on, defined the same way,
 
 1. `ledger___notifications_list` with `unread: true`. If anything moved since the user last looked (an answered decision, a finished run, a comment), lead with it.
 2. **Today**, three lists:
-   - `ledger___task_list` with `plan_date: "today"` and `status: "not-done"`.
+   - `ledger___task_list` with `plan_date: "<today, YYYY-MM-DD>"` (the user's local date; the server's `today` literal runs on its own UTC clock) and `status: "not-done"`.
    - `ledger___task_list` with `status: "In Progress"` and `assignee: <the user>`.
    - Due today or overdue: there is no due-date filter, so `ledger___task_list` with `status: "not-done"` and `assignee: <the user>`, keeping the rows whose `due_date` is on or before today. If that list is large, read one top-level folder at a time instead. `due_kind: "hard"` marks a deadline that cannot move: say so.
 3. **Needs me**, three lists:
