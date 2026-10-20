@@ -1,7 +1,7 @@
 {
   "name": "wendy",
-  "version": "0.1.6",
-  "description": "Wendy, the executive assistant: capture, triage and briefs on the Footbridge task ledger, signed in with your Footbridge Microsoft account",
+  "version": "0.2.0",
+  "description": "Wendy, the executive assistant: capture, triage and briefs on ftask, the Footbridge task tracker, signed in with your Footbridge Microsoft account",
   "author": {
     "name": "Footbridge Federal"
   },

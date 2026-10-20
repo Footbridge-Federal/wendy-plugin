@@ -2,7 +2,7 @@
 
 Wendy is an executive assistant that runs inside [Claude Code](https://claude.com/claude-code) on your own Claude subscription. You talk to her, often by voice, and she:
 
-- captures every open loop into the Footbridge task ledger;
+- captures every open loop into ftask, the Footbridge task tracker;
 - triages what you've captured into the right folders and priorities;
 - tells you what to work on next.
 
@@ -21,7 +21,7 @@ claude plugin install wendy@footbridge
 
 Start Claude Code, run `/mcp`, pick the **footbridge** server and choose **Authenticate**. A browser window opens for your Footbridge Microsoft sign-in; with single sign-on it is usually one click. Claude Code keeps you signed in after that.
 
-One sign-in covers every Footbridge tool behind the gateway, including the task ledger.
+One sign-in covers every Footbridge tool behind the gateway, including ftask.
 
 ## Start Wendy
 
@@ -47,15 +47,24 @@ Wendy is added **on top of** Claude Code's normal instructions, so a Wendy sessi
 
 | Piece | Path | What it does |
 |---|---|---|
-| Persona | `plugins/wendy/persona.md` | Wendy's voice, manner and ledger conventions |
+| Persona | `plugins/wendy/persona.md` | Wendy's voice, manner and ftask conventions: types, statuses, labels |
 | Session-start hooks | `plugins/wendy/hooks/hooks.json` | When `WENDY=1` is set: adds the persona, and says when a newer Wendy is out (`scripts/update-check.sh`, at most one GitHub check every 6 hours). Otherwise they do nothing |
-| Skills | `plugins/wendy/skills/` | `/wendy:todo` quick capture · `/wendy:brief` what matters now (`hour`, `delegate` variants) · `/wendy:triage` bucket and prioritize · `/wendy:setup` one-time setup · `/wendy:update` install the latest version |
+| Skills | `plugins/wendy/skills/` | `/wendy:todo` quick capture · `/wendy:brief` Today and Needs me (`hour`, `delegate` variants) · `/wendy:triage` bucket and prioritize · `/wendy:setup` one-time setup · `/wendy:update` install the latest version |
 | MCP connection | `plugins/wendy/.mcp.json` | The Footbridge MCP gateway (`https://mcp.dev.footbridge.ai/mcp`), with Claude Code's Entra app id preset so sign-in works |
 | Marketplace | `.claude-plugin/marketplace.json` | The catalog that `claude plugin marketplace add` reads |
 
-The ledger's tools arrive through the gateway with the `ledger___` prefix (`ledger___task_create`, `ledger___folder_list`, …). Your folders come from the ledger itself, so nothing in this plugin is specific to one person.
+ftask's tools arrive through the gateway with the `ledger___` prefix (`ledger___task_create`, `ledger___folder_list`, …). Your folders come from ftask itself, so nothing in this plugin is specific to one person.
 
 If you already configured the same gateway URL by hand, Claude Code uses your entry and skips the plugin's duplicate. Wendy works either way.
+
+## How Wendy speaks ftask
+
+ftask is a conventional tracker, and Wendy files in its vocabulary rather than in prose or labels:
+
+- **Types.** A task (the default); a **decision** (2–4 options she wrote and her recommendation, assigned to you: pick one in the app or tell her in a session, and `task_decide` closes it); a **review** (a finished agent run that needs your look); or a **waiting-for** (`Blocked`, with `waiting_on` naming who).
+- **Statuses.** `To Do`, `In Progress`, `Blocked`, `Done` in the API. The app's Triage is `To Do` plus the `inbox` label, where every `/wendy:todo` capture lands; Backlog is the `idea` label.
+- **Dates.** `due_kind: hard` when a deadline cannot move; `plan_date` when you say when you'll do it.
+- **`/wendy:brief`** reads the app's own views: **Today** (due today or overdue, planned for today, or in progress and yours) and **Needs me** (decisions and reviews assigned to you, plus anything Blocked).
 
 ## Security model
 
@@ -93,5 +102,5 @@ Either way Wendy works: she matches tools by the `ledger___` part of the name.
 
 ### If tools fail to load
 
-"Tools fetch failed" usually means you are signed in but have no Wendy ledger account yet.
+"Tools fetch failed" usually means you are signed in but have no ftask account yet.
 Run `/mcp`, pick the Footbridge server and choose Authenticate; if it persists, ask your Footbridge admin.

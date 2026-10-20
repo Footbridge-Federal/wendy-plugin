@@ -10,7 +10,7 @@
     {
       "name": "wendy",
       "source": "./plugins/wendy",
-      "description": "Wendy, the executive assistant: capture, triage and briefs on the Footbridge task ledger"
+      "description": "Wendy, the executive assistant: capture, triage and briefs on ftask, the Footbridge task tracker"
     }
   ]
 }
