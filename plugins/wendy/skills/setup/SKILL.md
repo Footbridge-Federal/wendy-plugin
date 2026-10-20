@@ -48,7 +48,7 @@ just longer.
 
 Look for a tool whose name ends in `ledger___health`. If tools are deferred, load it with tool search (query: `ledger___health`). Only a name ending in exactly `ledger___health` counts.
 
-- **Available:** call it. If it succeeds, say "Connected to the Footbridge ledger." If it fails with an authorization error, note that they need to sign in, and keep going.
+- **Available:** call it. If it succeeds, say "Connected to ftask." If it fails with an authorization error, note that they need to sign in, and keep going.
 - **Missing:** expected when you just added or renamed the connection in step 1, or when they have not signed in yet. Note it and keep going.
 
 Never stop the setup here, and never ask the user to run `/wendy:setup` twice. The remaining steps do not need a working connection.
@@ -59,7 +59,7 @@ Without this, Claude Code asks for approval the first time each Footbridge tool 
 
 - Work out the server's permission name from the full name of the tool you found in step 2: drop the trailing `__ledger___health`. For example, `mcp__plugin_wendy_footbridge__ledger___health` gives `mcp__plugin_wendy_footbridge`, and `mcp__footbridge-mcp-dev__ledger___health` gives `mcp__footbridge-mcp-dev`. The name depends on how the server was added on this machine, so never guess it.
 - Read `~/.claude/settings.json` (treat a missing file as `{}`). If `permissions.allow` already contains that name, say so and skip.
-- Otherwise offer to add it: one entry allows every tool on that server (the ledger, Bullhorn and the rest) without a prompt. The data is still limited to what the user's own Microsoft sign-in can see.
+- Otherwise offer to add it: one entry allows every tool on that server (ftask, Bullhorn and the rest) without a prompt. The data is still limited to what the user's own Microsoft sign-in can see.
 - Only after the user says yes, add the name to `permissions.allow`, creating `permissions` or `allow` if needed. Keep every other setting exactly as it was, and make sure the file is still valid JSON.
 
 ## 4. The `wendy` alias (ask first)
